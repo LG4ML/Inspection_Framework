@@ -29,7 +29,9 @@ def __cast_input_values(values: Union[pd.Series, np.ndarray, List[str]]) \
 
 def __return_values(original_values: Union[pd.Series, np.ndarray, List[str], str, int, float],
                     transformed_values: Union[pd.Series, np.ndarray, List[str], str, int, float],
-                    result: str, input_format: str) -> Union[pd.Series, np.ndarray, List[str], str, int, float]:
+                    result: str,
+                    input_format: str) \
+        -> Union[pd.Series, np.ndarray, List[str], str, int, float]:
     """
     Transforms the transformed values to the desired format and returns them. If the transformation fails, the original
     values are returned. The result parameter specifies the format of the returned values. If result is 'series', a
@@ -56,8 +58,10 @@ def __return_values(original_values: Union[pd.Series, np.ndarray, List[str], str
         return original_values
 
 
-def convert_to_datetime(values: Union[pd.Series, np.ndarray, List[str]], fmt: str = None,
-                        result: str = 'same') -> Union[pd.Series, np.ndarray, List[dt.datetime]]:
+def convert_to_datetime(values: Union[pd.Series, np.ndarray, List[str]],
+                        fmt: str = None,
+                        result: str = 'same') \
+        -> Union[pd.Series, np.ndarray, List[dt.datetime]]:
     """
     Converts the values to datetime format and returns them in the same format as the input. If the conversion fails,
     the original values are returned. The format of the datetime string is specified by the fmt parameter. If fmt is
@@ -102,7 +106,8 @@ def convert_to_datetime(values: Union[pd.Series, np.ndarray, List[str]], fmt: st
     return __return_values(original_values, transformed_values, result, input_format)
 
 
-def __replace_multiple_decimal_separators(value: str) -> str:
+def __replace_multiple_decimal_separators(value: str) \
+        -> str:
     """
     Replaces multiple decimal separators with a single decimal separator and returns the result.
 
@@ -119,7 +124,8 @@ def __replace_multiple_decimal_separators(value: str) -> str:
 
 
 def convert_to_numerical(values: Union[pd.Series, np.ndarray, List[str]],
-                         result: str = 'same') -> Union[pd.Series, np.ndarray, List[float]]:
+                         result: str = 'same') \
+        -> Union[pd.Series, np.ndarray, List[float]]:
     """
     Converts the values to numerical format and returns them in the same format as the input. If the conversion fails,
     the original values are returned. The result parameter specifies the format of the returned values. If result is
@@ -161,7 +167,8 @@ def convert_to_numerical(values: Union[pd.Series, np.ndarray, List[str]],
 
 
 def convert_to_boolean(values: Union[pd.Series, np.ndarray, List[str]],
-                       result: str = 'same') -> Union[pd.Series, np.ndarray, List[float]]:
+                       result: str = 'same') \
+        -> Union[pd.Series, np.ndarray, List[float]]:
     # Check if the result parameter is valid
     assert result in ['series', 'array', 'list', 'same'], 'Invalid result parameter.'
 
