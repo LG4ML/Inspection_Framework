@@ -58,7 +58,7 @@ def __return_values(original_values: Union[pd.Series, np.ndarray, List[str], str
         return original_values
 
 
-def convert_to_datetime(values: Union[pd.Series, np.ndarray, List[str]],
+def convert_to_datetime(values: Union[pd.Series, np.ndarray, List[str], str, int, float],
                         fmt: str = None,
                         result: str = 'same') \
         -> Union[pd.Series, np.ndarray, List[dt.datetime]]:
@@ -123,7 +123,7 @@ def __replace_multiple_decimal_separators(value: str) \
     return value
 
 
-def convert_to_numerical(values: Union[pd.Series, np.ndarray, List[str]],
+def convert_to_numerical(values: Union[pd.Series, np.ndarray, List[str], str],
                          result: str = 'same') \
         -> Union[pd.Series, np.ndarray, List[float]]:
     """
@@ -166,7 +166,7 @@ def convert_to_numerical(values: Union[pd.Series, np.ndarray, List[str]],
     return __return_values(original_values, transformed_values, result, input_format)
 
 
-def convert_to_boolean(values: Union[pd.Series, np.ndarray, List[str]],
+def convert_to_boolean(values: Union[pd.Series, np.ndarray, List[str], str, int, float],
                        result: str = 'same') \
         -> Union[pd.Series, np.ndarray, List[float]]:
     # Check if the result parameter is valid
@@ -187,8 +187,11 @@ def convert_to_boolean(values: Union[pd.Series, np.ndarray, List[str]],
 
     # Try to map the values to boolean format
     if transformed_values is None:
+        true_values = ['True', 'true', '1', 1, True]
+        false_values = ['False', 'false', '0', 0, False]
+        dict_values = {k: k in true_values for k in true_values + false_values}
         try:
-            transformed_values = values.apply(lambda x: bool(x))
+            transformed_values = values.apply(lambda x: dict_values[x])
         except ValueError:
             pass
 
