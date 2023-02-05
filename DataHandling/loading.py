@@ -77,7 +77,9 @@ def load_csv_like_file(path: Path, encoding: str = None, separator: str = None,
 
     # Use the given parameters to load the data
     try:
-        data = pd.read_csv(path, encoding=encoding, sep=separator, decimal=decimal, index_col=index_col)
+        data = pd.read_csv(path, encoding=encoding, sep=separator,
+                           decimal=decimal if decimal is not None else '.',
+                           index_col=index_col)
         return data
     except Exception:
         pass
